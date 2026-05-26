@@ -16,10 +16,10 @@ export function CourseCard({ course }: CourseCardProps) {
   const inCart = items.some((item) => item.id === course.id);
 
   return (
-    <GlassPanel hoverEffect className="flex flex-col gap-4 overflow-hidden p-0 border border-white/5">
-      <div className="relative aspect-video w-full overflow-hidden bg-muted">
+    <GlassPanel hoverEffect className="flex flex-col gap-4 overflow-hidden p-0 border border-border/30">
+      <div className="relative aspect-video w-full overflow-hidden bg-muted/30">
         {/* Placeholder gradient since we don't have images configured */}
-        <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-purple-500/20" />
+        <div className="absolute inset-0 bg-gradient-to-tr from-primary/10 via-primary/5 to-transparent dark:from-primary/20 dark:via-purple-500/10 dark:to-transparent mix-blend-multiply dark:mix-blend-normal" />
         {course.image && (
           <img
             src={course.image}
@@ -42,7 +42,7 @@ export function CourseCard({ course }: CourseCardProps) {
         <p className="text-sm text-muted-foreground">{course.author}</p>
         
         <div className="mt-auto flex items-center justify-between pt-4">
-          <span className="text-xl font-black text-white">${course.price}</span>
+          <span className="text-xl font-black text-foreground">${course.price}</span>
           <Button
             size="sm"
             variant={inCart ? "secondary" : "primary"}

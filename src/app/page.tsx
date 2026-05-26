@@ -16,7 +16,7 @@ export default function HomePage() {
         <section className="relative overflow-hidden py-20 sm:py-32">
           <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))] opacity-20" />
           <div className="container relative mx-auto px-4 sm:px-8 text-center">
-            <h1 className="text-5xl font-black tracking-tight text-white md:text-7xl lg:text-8xl">
+            <h1 className="text-5xl font-black tracking-tight text-foreground md:text-7xl lg:text-8xl">
               Learn <span className="text-primary">Without</span> Limits
             </h1>
             <p className="mx-auto mt-6 max-w-2xl text-lg text-muted-foreground">

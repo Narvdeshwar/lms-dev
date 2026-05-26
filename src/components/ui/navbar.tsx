@@ -5,20 +5,30 @@ import Link from "next/link";
 import { ShoppingCart } from "lucide-react";
 import { Button } from "./button";
 import { useCart } from "@/context/CartProvider";
+import { ThemeSwitcher } from "./theme-switcher";
 
 export function Navbar() {
   const { items, setIsCartOpen } = useCart();
 
   return (
-    <nav className="sticky top-0 z-50 w-full border-b border-white/5 bg-background/80 backdrop-blur-md">
+    <nav className="sticky top-0 z-50 w-full border-b border-border/5 bg-background/80 backdrop-blur-md">
       <div className="container mx-auto flex h-16 items-center justify-between px-4 sm:px-8">
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-6">
+          <ThemeSwitcher />
           <Link
             href="/"
             className="bg-gradient-to-r from-primary to-purple-400 bg-clip-text text-2xl font-bold tracking-tight text-transparent"
           >
             LMS.ai
           </Link>
+          <div className="hidden md:flex gap-4 ml-6">
+            <Link href="/courses" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+              Catalog
+            </Link>
+            <Link href="/my-courses" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+              My Courses
+            </Link>
+          </div>
         </div>
 
         <div className="flex items-center gap-4">
@@ -37,7 +47,7 @@ export function Navbar() {
             <Button size="sm" variant="outline" className="h-8">Sign up</Button>
           </Link>
 
-          <div className="h-5 w-px bg-white/10 mx-1 hidden sm:block" />
+          <div className="h-5 w-px bg-foreground/10 mx-1 hidden sm:block" />
 
           <Link href="/cart">
             <Button

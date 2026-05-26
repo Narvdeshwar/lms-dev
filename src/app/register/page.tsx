@@ -11,12 +11,12 @@ import { UserPlus } from "lucide-react";
 export default function RegisterPage() {
   return (
     <div className="flex flex-1 items-center justify-center p-4 min-h-[80vh]">
-      <GlassPanel className="w-full max-w-md p-8 border border-white/10 shadow-2xl">
+      <GlassPanel className="w-full max-w-md p-8 border border-border/50 shadow-2xl">
         <div className="flex flex-col items-center mb-8">
           <div className="h-12 w-12 rounded-full bg-primary/20 flex items-center justify-center mb-4">
             <UserPlus className="h-6 w-6 text-primary" />
           </div>
-          <h1 className="text-2xl font-bold text-white tracking-tight">Create an Account</h1>
+          <h1 className="text-2xl font-bold text-foreground tracking-tight">Create an Account</h1>
           <p className="text-sm text-muted-foreground mt-1">Start learning with LMS.ai today</p>
         </div>
 

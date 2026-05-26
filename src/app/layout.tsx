@@ -17,6 +17,7 @@ const geistMono = Geist_Mono({
 });
 
 import { ConditionalFooter } from "@/components/ui/conditional-footer";
+import { ThemeProvider } from "@/components/theme-provider";
 
 export const metadata: Metadata = {
   title: "LMS Platform",
@@ -31,15 +32,18 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={cn("h-full dark", "antialiased", geistSans.variable, geistMono.variable, "font-sans", ibmPlexSans.variable)}
+      className={cn("h-full", "antialiased", geistSans.variable, geistMono.variable, "font-sans", ibmPlexSans.variable)}
+      suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col">
-        <CartProvider>
-          <div className="flex-1 flex flex-col min-h-screen">
-            {children}
-            <ConditionalFooter />
-          </div>
-        </CartProvider>
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
+          <CartProvider>
+            <div className="flex-1 flex flex-col min-h-screen">
+              {children}
+              <ConditionalFooter />
+            </div>
+          </CartProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

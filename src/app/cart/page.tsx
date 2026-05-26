@@ -13,7 +13,7 @@ export default function CartPage() {
   return (
     <div className="flex min-h-[80vh] flex-col p-4 md:p-8 container mx-auto max-w-5xl">
       <div className="mb-8">
-        <h1 className="text-4xl font-black tracking-tight text-white">Your Cart</h1>
+        <h1 className="text-4xl font-black tracking-tight text-foreground">Your Cart</h1>
         <p className="mt-2 text-muted-foreground">Review your courses before proceeding to checkout.</p>
       </div>
 
@@ -22,7 +22,7 @@ export default function CartPage() {
           <div className="mb-4 rounded-full bg-primary/20 p-4">
             <Trash2 className="h-8 w-8 text-primary" />
           </div>
-          <h2 className="mb-2 text-2xl font-bold text-white">Your cart is empty</h2>
+          <h2 className="mb-2 text-2xl font-bold text-foreground">Your cart is empty</h2>
           <p className="mb-6 text-muted-foreground">Looks like you haven't added any courses yet.</p>
           <Link href="/courses">
             <Button size="lg">Browse Catalog</Button>
@@ -40,7 +40,7 @@ export default function CartPage() {
                 </div>
                 <div className="flex flex-1 flex-col sm:flex-row items-start sm:items-center justify-between w-full gap-4">
                   <div>
-                    <h3 className="font-bold text-white text-lg line-clamp-1">{item.title}</h3>
+                    <h3 className="font-bold text-foreground text-lg line-clamp-1">{item.title}</h3>
                     <p className="text-sm text-muted-foreground">{item.author}</p>
                   </div>
                   <div className="flex items-center gap-6 w-full sm:w-auto justify-between sm:justify-end">
@@ -56,13 +56,13 @@ export default function CartPage() {
 
           <div className="lg:col-span-1">
             <GlassPanel className="sticky top-24 p-6">
-              <h2 className="mb-6 text-xl font-bold text-white border-b border-white/10 pb-4">Order Summary</h2>
+              <h2 className="mb-6 text-xl font-bold text-foreground border-b border-border/50 pb-4">Order Summary</h2>
               <div className="space-y-4 mb-6">
                 <div className="flex justify-between text-muted-foreground">
                   <span>Subtotal ({items.length} items)</span>
                   <span>${total.toFixed(2)}</span>
                 </div>
-                <div className="flex justify-between font-bold text-white text-xl pt-4 border-t border-white/10">
+                <div className="flex justify-between font-bold text-foreground text-xl pt-4 border-t border-border/50">
                   <span>Total</span>
                   <span className="text-primary">${total.toFixed(2)}</span>
                 </div>

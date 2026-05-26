@@ -20,7 +20,7 @@ export function CourseList({ courses, title, description }: CourseListProps) {
       {(title || description) && (
         <div className="mb-8 flex flex-col gap-2">
           {title && (
-            <h2 className="text-3xl font-bold tracking-tight text-white md:text-4xl">
+            <h2 className="text-3xl font-bold tracking-tight text-foreground md:text-4xl">
               {title}
             </h2>
           )}
