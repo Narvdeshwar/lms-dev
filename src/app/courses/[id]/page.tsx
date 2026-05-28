@@ -70,7 +70,7 @@ export default function CourseConsumptionPage() {
 
       <div className="flex flex-1 overflow-hidden relative">
         {/* Sidebar Curriculum */}
-        <aside 
+        <aside
           className={`shrink-0 border-r border-border/50 bg-background/50 backdrop-blur transition-all duration-300 ease-in-out flex flex-col absolute sm:relative z-40 h-full ${
             sidebarOpen ? "w-80 translate-x-0" : "w-0 -translate-x-full border-r-0"
           }`}
@@ -97,8 +97,8 @@ export default function CourseConsumptionPage() {
                         key={lesson.id}
                         onClick={() => setActiveLesson(lesson.id)}
                         className={`w-full flex items-start gap-3 p-3 rounded-xl text-left transition-all duration-200 ${
-                          isActive 
-                            ? "bg-primary/10 border border-primary/20 shadow-[0_0_15px_rgba(139,92,246,0.05)]" 
+                          isActive
+                            ? "bg-primary/10 border border-primary/20 shadow-[0_0_15px_rgba(139,92,246,0.05)]"
                             : "hover:bg-foreground/5 border border-transparent text-muted-foreground hover:text-foreground"
                         }`}
                       >
@@ -129,15 +129,24 @@ export default function CourseConsumptionPage() {
         {/* Main Content Area */}
         <main className="flex-1 flex flex-col overflow-y-auto relative scroll-smooth">
           <div className="max-w-5xl w-full mx-auto p-4 sm:p-8 flex-1">
-            
+
             {/* Conditional Content Rendering */}
             {currentLessonDetails?.type === "video" && (
-              <div className="w-full aspect-video bg-black rounded-2xl border border-border/10 shadow-2xl relative overflow-hidden flex items-center justify-center ring-1 ring-border/5">
+              <div 
+                id="video-container"
+                className="w-full aspect-video bg-black rounded-2xl border border-border/10 shadow-2xl relative overflow-hidden flex items-center justify-center ring-1 ring-border/5 group"
+              >
+                <style>{`
+                  video::-webkit-media-controls-fullscreen-button {
+                    display: none !important;
+                  }
+                `}</style>
+                
                 {/* Dummy Video */}
-                <video 
-                  className="w-full h-full object-cover" 
-                  controls 
-                  controlsList="nodownload" 
+                <video
+                  className="w-full h-full object-cover"
+                  controls
+                  controlsList="nodownload"
                   disablePictureInPicture
                   poster="https://images.unsplash.com/photo-1633356122544-f134324a6cee?q=80&w=1920&auto=format&fit=crop"
                 >
@@ -146,43 +155,77 @@ export default function CourseConsumptionPage() {
                 </video>
 
                 {/* Anti-Recording Overlay */}
-                <div className="absolute inset-0 pointer-events-none z-50 flex flex-col items-center justify-center overflow-hidden opacity-30 mix-blend-difference">
-                  {Array.from({ length: 5 }).map((_, i) => (
-                    <div 
-                      key={i} 
-                      className="text-foreground text-xl sm:text-3xl font-bold whitespace-nowrap -rotate-12 select-none opacity-50 my-10"
-                      style={{ animation: `pulse 4s infinite ${i * 0.5}s` }}
+                <div className="absolute inset-0 pointer-events-none z-40 flex flex-col items-center justify-center overflow-hidden opacity-30 mix-blend-difference">
+                  {Array.from({ length: 10 }).map((_, i) => (
+                    <div
+                      key={i}
+                      className="text-foreground text-xl sm:text-2xl font-bold whitespace-nowrap -rotate-24 select-none opacity-30 my-10"
+                      style={{ animation: `pulse 5s infinite ${i * 1}s` }}
                     >
-                      DO NOT RECORD - user@example.com
+                      DO NOT RECORD : user@gmail.com 87XXXX12XX
                     </div>
                   ))}
                 </div>
+
+                {/* Custom Fullscreen Button */}
+                <button 
+                  onClick={() => {
+                    const container = document.getElementById('video-container');
+                    if (!document.fullscreenElement) {
+                      container?.requestFullscreen().catch(err => console.error(err));
+                    } else {
+                      document.exitFullscreen();
+                    }
+                  }}
+                  className="absolute bottom-4 right-4 z-50 p-2 rounded bg-black/50 text-white opacity-0 group-hover:opacity-100 transition-opacity hover:bg-black/80"
+                  title="Toggle Fullscreen"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg>
+                </button>
               </div>
             )}
 
             {currentLessonDetails?.type === "pdf" && (
-              <div className="w-full aspect-[4/3] bg-card rounded-2xl border border-border/10 shadow-2xl relative overflow-hidden flex flex-col ring-1 ring-border/5">
-                <div className="bg-muted px-4 py-3 border-b border-border/10 flex justify-between items-center">
+              <div id="pdf-container" className="w-full h-[75vh] min-h-[600px] bg-card rounded-2xl border border-border/10 shadow-2xl relative overflow-hidden flex flex-col ring-1 ring-border/5">
+                <div className="bg-muted px-4 py-3 border-b border-border/10 flex justify-between items-center z-50 relative">
                    <div className="flex items-center gap-2 text-foreground font-medium">
                      <FileText className="w-5 h-5 text-primary" />
                      {currentLessonDetails.title}.pdf
                    </div>
-                   <Button variant="outline" size="sm" className="h-8">Download</Button>
+                   <div className="flex items-center gap-2">
+                     <Button 
+                       variant="outline" 
+                       size="sm" 
+                       className="h-8"
+                       onClick={() => {
+                         const container = document.getElementById('pdf-container');
+                         if (!document.fullscreenElement) {
+                           container?.requestFullscreen().catch(err => console.error(err));
+                         } else {
+                           document.exitFullscreen();
+                         }
+                       }}
+                     >
+                       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg>
+                       Fullscreen
+                     </Button>
+                     <Button variant="outline" size="sm" className="h-8">Download</Button>
+                   </div>
                 </div>
-                
-                <div className="flex-1 relative">
+
+                <div className="flex-1 relative h-full w-full">
                   {/* Dummy PDF using iframe */}
-                  <iframe 
-                    src="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf#toolbar=0" 
-                    className="w-full h-full border-0 bg-white"
+                  <iframe
+                    src="https://pdfobject.com/pdf/sample-3pp.pdf#toolbar=0"
+                    className="absolute inset-0 w-full h-full border-0 bg-white"
                     title="PDF Viewer"
                   />
 
                   {/* Anti-Recording Overlay for PDF */}
-                  <div className="absolute inset-0 pointer-events-none z-50 flex flex-col items-center justify-center overflow-hidden opacity-20 mix-blend-difference">
+                  <div className="absolute inset-0 pointer-events-none z-40 flex flex-col items-center justify-center overflow-hidden opacity-20 mix-blend-difference">
                     {Array.from({ length: 6 }).map((_, i) => (
-                      <div 
-                        key={i} 
+                      <div
+                        key={i}
                         className="text-black text-xl sm:text-2xl font-bold whitespace-nowrap rotate-45 select-none opacity-40 my-8"
                       >
                         CONFIDENTIAL - DO NOT SHARE
@@ -207,7 +250,7 @@ export default function CourseConsumptionPage() {
                      </p>
                    </div>
                  </div>
-                 
+
                  <div className="space-y-4 mb-10">
                    <h4 className="text-xl font-medium text-foreground mb-6">1. Which of the following statements is true regarding React Server Components?</h4>
                    <div className="space-y-3">
@@ -241,7 +284,7 @@ export default function CourseConsumptionPage() {
                   In this module, we will cover the foundational concepts and explore practical examples to help you master this topic. Make sure to follow along with the source code provided in the resources section below.
                 </p>
               </div>
-              
+
               <div className="flex items-center gap-3 shrink-0">
                 <Button variant="outline" className="border-border/50 hover:bg-foreground/10 hover:text-foreground transition-colors">
                   <ChevronLeft className="w-4 h-4 mr-2" />
@@ -271,7 +314,7 @@ export default function CourseConsumptionPage() {
                 </div>
               </div>
             </div>
-            
+
             {/* Q&A Section Stub */}
             <div className="mt-12 pt-8 border-t border-border/50 mb-20">
                <h3 className="text-xl font-semibold text-foreground mb-6">Discussion</h3>
